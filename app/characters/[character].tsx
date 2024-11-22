@@ -29,7 +29,6 @@ const Character = () => {
   }, [theme]);
 
   if (characterData) {
-    // Create data for the bio section and physical description
     const bioData = [
       { key: "Nationality", value: characterData.bio.nationality },
       { key: "Ethnicity", value: characterData.bio.ethnicity },
@@ -52,7 +51,6 @@ const Character = () => {
           <Image source={{ uri: characterData.image }} style={styles.characterImage} />
           <Text style={styles.characterName}>{characterData.name}</Text>
 
-          {/* Scrollable Bio and Physical Description Section */}
           <View style={styles.infoBox}>
             <Text style={styles.sectionTitle}>Character Information:</Text>
             <FlatList

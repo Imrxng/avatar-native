@@ -9,7 +9,7 @@ const earth = require("../../assets/images/aarde.webp");
 const air = require("../../assets/images/lucht.webp");
 const water = require("../../assets/images/water.webp");
 
-const Characters = () => {
+const CharactersList = () => {
   const { characters, theme } = useContext(DataContext);
   const [themeImage, setThemeImage] = useState(standard);
 
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    justifyContent: 'flex-start',  // Zorg ervoor dat de inhoud bovenaan begint
-    alignItems: 'center',  // Zorg ervoor dat alles horizontaal gecentreerd is
+    justifyContent: 'flex-start', 
+    alignItems: 'center',
   },
   characterContainer: {
     backgroundColor: 'white',
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Characters;
+export default CharactersList;

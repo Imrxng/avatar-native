@@ -1,6 +1,7 @@
 import { DataContext } from '@/datacontext';
 import React, { useContext, useEffect, useState } from "react";
-import { Text, View, StyleSheet, FlatList, ImageBackground } from "react-native";
+import { Text, View, StyleSheet, FlatList, ImageBackground, Button } from "react-native";
+import * as Notifications from 'expo-notifications';
 
 const standard = require("../assets/images/standaard.webp");
 const fire = require("../assets/images/vuur.webp");
@@ -11,6 +12,36 @@ const water = require("../assets/images/water.webp");
 const Episodes = () => {
   const { episodes, theme } = useContext(DataContext);
   const [themeImage, setThemeImage] = useState(standard);  
+
+
+  useEffect(() => {
+    const askForNotificationPermissions = async () => {
+      const { status } = await Notifications.requestPermissionsAsync();
+      if (status !== 'granted') {
+        alert('Permissie voor meldingen niet verleend!');
+      }
+      Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+          shouldShowAlert: true,
+          shouldPlaySound: true,
+          shouldSetBadge: true,
+        }),
+      });
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Nieuwe aflevering beschikbaar 📺",
+          body: "Bekijk nu je favoriete aflevering!",
+          data: { screen: 'Episodes' },
+        },
+        trigger: {
+          seconds: 5,
+          channelId: 'episodes',
+        },
+      });
+    };
+  
+    askForNotificationPermissions();
+  }, []);
 
   useEffect(() => {
     if (theme === "water") {
@@ -34,8 +65,8 @@ const Episodes = () => {
     >
       <Text style={styles.title}>Avatar episodes</Text>
       <FlatList
-        data={episodes} // Gebruik de volledige lijst van episodes
-        numColumns={1} // 1 kolom per rij (kan worden aangepast op basis van je ontwerp)
+        data={episodes}
+        numColumns={1} 
         renderItem={({ item }) => (
           <View style={styles.episodeContainer}>
             <Text style={styles.episodeTitle}>{item.Title}</Text>
@@ -45,10 +76,9 @@ const Episodes = () => {
         )}
         keyExtractor={item => item.id.toString()}
         onEndReached={() => {
-          // Laad nieuwe afleveringen wanneer het einde van de lijst wordt bereikt
           console.log('End of list reached. Load more episodes here if needed.');
         }}
-        onEndReachedThreshold={0.5} // Laad meer wanneer 50% van de lijst zichtbaar is
+        onEndReachedThreshold={0.5} 
       />
     </ImageBackground>
   );
