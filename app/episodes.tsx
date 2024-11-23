@@ -1,6 +1,6 @@
 import { DataContext } from '@/datacontext';
 import React, { useContext, useEffect, useState } from "react";
-import { Text, View, StyleSheet, FlatList, ImageBackground, Button } from "react-native";
+import { Text, View, StyleSheet, FlatList, ImageBackground } from "react-native";
 
 const standard = require("../assets/images/standaard.webp");
 const fire = require("../assets/images/vuur.webp");
@@ -10,8 +10,7 @@ const water = require("../assets/images/water.webp");
 
 const Episodes = () => {
   const { episodes, theme } = useContext(DataContext);
-  const [themeImage, setThemeImage] = useState(standard);  
-
+  const [themeImage, setThemeImage] = useState(standard);
 
   useEffect(() => {
     if (theme === "water") {
@@ -45,10 +44,6 @@ const Episodes = () => {
           </View>
         )}
         keyExtractor={item => item.id.toString()}
-        onEndReached={() => {
-          console.log('End of list reached. Load more episodes here if needed.');
-        }}
-        onEndReachedThreshold={0.5} 
       />
     </ImageBackground>
   );
@@ -60,28 +55,31 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   episodeContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Licht doorzichtige achtergrond voor leesbaarheid
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', 
     padding: 16,
     marginBottom: 10,
     borderRadius: 10,
     borderWidth: 2,
   },
   episodeTitle: {
-    fontSize: 18,
+    fontSize: 36,
     fontWeight: 'bold',
     color: '#333',
+    fontFamily: 'avatarock',
   },
   episodeDetails: {
-    fontSize: 14,
+    fontSize: 22,
     color: '#666',
+    fontFamily: 'avatarock',
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 80,
+    fontWeight: 100,
     marginTop: 80,
-    marginBottom: 60,
+    marginBottom: 40,
     textAlign: "center",
-    color: 'white',
+    color: '#141115',
+    fontFamily: 'avatarock',
   },
 });
 

@@ -86,20 +86,22 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    marginBottom: 10, 
+    marginBottom: 10,
   },
   characterName: {
-    fontSize: 16,
+    fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
+    fontFamily: 'avatarock'
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 80,
+    fontWeight: 100,
     marginTop: 80,
-    marginBottom: 40,
+    marginBottom: 60,
     textAlign: "center",
-    color: 'white',
+    color: '#141115',
+    fontFamily: 'avatarock'
   },
 });
 

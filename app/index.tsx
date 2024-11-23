@@ -9,7 +9,7 @@ const water = require("../assets/images/water.webp");
 
 const Index = () => {
   const { info, theme } = useContext(DataContext);
-  const [themeImage, setThemeImage] = useState(standard);  
+  const [themeImage, setThemeImage] = useState(standard);
 
   useEffect(() => {
     if (theme === "water") {
@@ -21,7 +21,7 @@ const Index = () => {
     } else if (theme === "lucht") {
       setThemeImage(air);
     } else {
-      setThemeImage(standard);  
+      setThemeImage(standard);
     }
   }, [theme]);
 
@@ -66,14 +66,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    fontFamily: 'avatarock',
+    fontSize: 40
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 80, 
     marginTop: 80,
-    marginBottom: 60,
+    marginBottom: 40,
     textAlign: "center",
-    color: 'white',
+    color: '#141115',
+    fontFamily: 'avatarock'
   },
   card: {
     backgroundColor: "white",
@@ -87,16 +89,20 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   synopsis: {
-    fontSize: 16,
+    fontSize: 20,  
     marginBottom: 8,
+    fontFamily: 'avatarock'
   },
   info: {
-    fontSize: 14,
+    fontSize: 16,  
     marginBottom: 4,
+    fontFamily: 'avatarock'
   },
   bold: {
     fontWeight: "bold",
+    fontSize: 20
   },
 });
+
 
 export default Index;

@@ -42,12 +42,13 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 53,
+    fontWeight: 100,
     marginTop: 80,
     marginBottom: 60,
     textAlign: "center",
-    color: 'white',
+    color: '#141115',
+    fontFamily: 'avatarock'
   },
 });
 

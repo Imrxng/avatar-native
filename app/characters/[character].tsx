@@ -2,6 +2,7 @@ import { DataContext } from '@/datacontext';
 import { useLocalSearchParams } from 'expo-router';
 import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, ImageBackground, FlatList, ScrollView } from 'react-native';
+
 const standard = require("../../assets/images/standaard.webp");
 const fire = require("../../assets/images/vuur.webp");
 const earth = require("../../assets/images/aarde.webp");
@@ -47,7 +48,7 @@ const Character = () => {
         style={styles.container}
         resizeMode="cover"
       >
-        <View style={styles.container}>
+        <View style={[styles.container]}>
           <Image source={{ uri: characterData.image }} style={styles.characterImage} />
           <Text style={styles.characterName}>{characterData.name}</Text>
 
@@ -81,19 +82,19 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: 'white',
     flex: 1,
-    borderRadius: 10
+    borderRadius: 10,
   },
   characterImage: {
     width: '100%',
     height: 300,
     resizeMode: 'contain',
-    marginBottom: 20,
   },
   characterName: {
-    fontSize: 24,
+    fontSize: 50,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 10,
+    fontFamily: 'avatarock',
   },
   infoBox: {
     backgroundColor: '#f9f9f9',
@@ -107,17 +108,26 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontWeight: 'bold',
     marginBottom: 10,
+    fontFamily: 'avatarock',
+    fontSize: 24
   },
   listItem: {
     flexDirection: 'row',
     marginBottom: 5,
+    alignItems: 'flex-start',
   },
   listKey: {
     fontWeight: 'bold',
     marginRight: 10,
+    fontFamily: 'avatarock',
+    fontSize: 22,
+    width: 130,
   },
   listValue: {
     flexShrink: 1,
+    fontFamily: 'avatarock',
+    fontSize: 20,
+    width: 200,
   },
 });
 
