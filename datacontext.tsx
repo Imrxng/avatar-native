@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Character, Episodes, Info, Question } from "./types";
 import * as Notifications from 'expo-notifications';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface IDataContext {
     characters: Character[];
@@ -10,9 +11,11 @@ interface IDataContext {
     questions: Question[];
     theme: string;
     setTheme: React.Dispatch<React.SetStateAction<string>>;
+    favorites: number[];
+    toggleFavorite: (id: number) => void;
 }
 
-export const DataContext = React.createContext<IDataContext>({ characters: [], info: [], episodes: [], questions: [], theme: 'standaard', setTheme: () => { } });
+export const DataContext = React.createContext<IDataContext>({ characters: [], info: [], episodes: [], questions: [], theme: 'standaard', setTheme: () => { }, favorites: [], toggleFavorite: () => {} });
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     const [characters, setCharacters] = useState<Character[]>([]);
@@ -20,6 +23,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     const [episodes, setEpisodes] = useState<Episodes[]>([]);
     const [questions, setQuestions] = useState<Question[]>([]);
     const [theme, setTheme] = useState<string>("standaard");
+    const [favorites, setFavorites] = useState<number[]>([]);
 
 
     useEffect(() => {
@@ -63,13 +67,30 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
                 },
             });
         };
+        const loadFavorites = async () => {
+            const storedFavorites = await AsyncStorage.getItem('favorites');
+            if (storedFavorites) {
+              setFavorites(JSON.parse(storedFavorites));
+            }
+          };
         setTimeout(() => {
             askForNotificationPermissions();
         }, 5000);
         fetchQuestions();
+        loadFavorites();
     }, []);
+
+    const toggleFavorite = async (id: number) => {
+        const updatedFavorites = favorites.includes(id)
+          ? favorites.filter(favId => favId !== id)
+          : [...favorites, id];
+    
+        setFavorites(updatedFavorites);
+        await AsyncStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+      };
+    
     return (
-        <DataContext.Provider value={{ characters: characters, info: info, episodes: episodes, questions: questions, theme: theme, setTheme: setTheme }}>
+        <DataContext.Provider value={{ characters: characters, info: info, episodes: episodes, questions: questions, theme: theme, setTheme: setTheme, favorites: favorites, toggleFavorite: toggleFavorite }}>
             {children}
         </DataContext.Provider>
     );

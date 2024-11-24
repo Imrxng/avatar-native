@@ -1,7 +1,7 @@
 import { DataContext } from '@/datacontext';
 import { useLocalSearchParams } from 'expo-router';
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, ImageBackground, FlatList, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground, FlatList, TouchableOpacity } from 'react-native';
 
 const standard = require("../../assets/images/standaard.webp");
 const fire = require("../../assets/images/vuur.webp");
@@ -9,11 +9,12 @@ const earth = require("../../assets/images/aarde.webp");
 const air = require("../../assets/images/lucht.webp");
 const water = require("../../assets/images/water.webp");
 
-const Character = () => {
+const Character: React.FC = () => {
   const [themeImage, setThemeImage] = useState(standard);
-  const { characters, theme } = useContext(DataContext);
+  const { characters, theme, favorites, toggleFavorite } = useContext(DataContext);
   const { character } = useLocalSearchParams();
   const characterData = characters.find(c => c.id === parseInt(character as string));
+  const isFavorite = favorites.includes(characterData?.id || 0);
 
   useEffect(() => {
     if (theme === "water") {
@@ -28,6 +29,8 @@ const Character = () => {
       setThemeImage(standard);
     }
   }, [theme]);
+
+
 
   if (characterData) {
     const bioData = [
@@ -51,6 +54,10 @@ const Character = () => {
         <View style={[styles.container]}>
           <Image source={{ uri: characterData.image }} style={styles.characterImage} />
           <Text style={styles.characterName}>{characterData.name}</Text>
+
+          <TouchableOpacity onPress={() => toggleFavorite(characterData.id)} style={styles.favoriteButton}>
+            <Text style={styles.favoriteIcon}>{isFavorite ? '❤️ Favorited' : '🤍 Favorite'}</Text>
+          </TouchableOpacity>
 
           <View style={styles.infoBox}>
             <Text style={styles.sectionTitle}>Character Information:</Text>
@@ -96,6 +103,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontFamily: 'avatarock',
   },
+  favoriteButton: {
+    alignSelf: 'center',
+    marginVertical: 10,
+  },
+  favoriteIcon: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#FF0000',
+    textAlign: 'center',
+  },
   infoBox: {
     backgroundColor: '#f9f9f9',
     padding: 15,
@@ -109,7 +126,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     fontFamily: 'avatarock',
-    fontSize: 24
+    fontSize: 24,
   },
   listItem: {
     flexDirection: 'row',

@@ -1,7 +1,8 @@
 import { DataContext } from '@/datacontext';
 import { Link } from 'expo-router';
 import React, { useContext, useEffect, useState } from "react";
-import { Text, View, StyleSheet, FlatList, ImageBackground, Image } from "react-native";
+import { Text, View, StyleSheet, FlatList, ImageBackground, Image, TouchableOpacity } from "react-native";
+import { Character } from '@/types';
 
 const standard = require("../../assets/images/standaard.webp");
 const fire = require("../../assets/images/vuur.webp");
@@ -10,7 +11,7 @@ const air = require("../../assets/images/lucht.webp");
 const water = require("../../assets/images/water.webp");
 
 const CharactersList = () => {
-  const { characters, theme } = useContext(DataContext);
+  const { characters, theme, favorites, toggleFavorite } = useContext(DataContext);
   const [themeImage, setThemeImage] = useState(standard);
 
   useEffect(() => {
@@ -37,21 +38,27 @@ const CharactersList = () => {
       <FlatList
         data={characters}
         numColumns={2}
-        renderItem={({ item }) => (
-          <Link
-            style={styles.characterContainer}
-            href={{
-              pathname: "/characters/[character]",
-              params: { character: item.id }
-            }}
-          >
-            <View style={styles.characterDetails}>
-              <Image source={{ uri: item.image }} style={styles.characterImage} />
-              <Text style={styles.characterName}>{item.name}</Text>
-            </View>
-          </Link>
+        renderItem={({ item }: { item: Character }) => (
+          <View style={styles.characterContainer}>
+            <TouchableOpacity onPress={() => toggleFavorite(item.id)}>
+              <Text style={styles.favoriteIcon}>
+                {favorites.includes(item.id) ? '❤️' : '🤍'}
+              </Text>
+            </TouchableOpacity>
+            <Link
+              href={{
+                pathname: "/characters/[character]",
+                params: { character: item.id }
+              }}
+            >
+              <View style={styles.characterDetails}>
+                <Image source={{ uri: item.image }} style={styles.characterImage} />
+                <Text style={styles.characterName}>{item.name}</Text>
+              </View>
+            </Link>
+          </View>
         )}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={(item: Character) => item.id.toString()}
       />
     </ImageBackground>
   );
@@ -102,6 +109,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: '#141115',
     fontFamily: 'avatarock'
+  },
+  favoriteIcon: {
+    fontSize: 30,
+    marginBottom: 5,
+    textAlign: 'center',
   },
 });
 
