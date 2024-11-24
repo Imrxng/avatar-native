@@ -6,6 +6,7 @@ const Layout = () => {
     <Stack screenOptions={{headerShown: false}}>
       <Stack.Screen name="Index" />
       <Stack.Screen name="Character" />
+      <Stack.Screen name="AddCharacterPage" />
     </Stack>
   );
 }

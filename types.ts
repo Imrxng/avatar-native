@@ -68,15 +68,10 @@ interface PersonalInformation {
 }
 
 interface PhysicalDescription {
-    gender: Gender;
+    gender: "male" | "female";
     eyeColor: string;
     hairColor: string;
     skinColor: string;
-}
-
-enum Gender {
-    Female = "Female",
-    Male = "Male",
 }
 
 interface PoliticalInformation {

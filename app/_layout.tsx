@@ -61,13 +61,6 @@ const RootLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="quiz"
-          options={{
-            tabBarIcon: () => <MaterialIcons name="quiz" size={24} color="#141115" />,
-            tabBarLabel: () => null,
-          }}
-        />
-        <Tabs.Screen
           name="profile"
           options={{
             tabBarIcon: () => <Feather name="settings" size={24} color="#141115" />,

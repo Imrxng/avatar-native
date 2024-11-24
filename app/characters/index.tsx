@@ -35,6 +35,7 @@ const CharactersList = () => {
       resizeMode="cover"
     >
       <Text style={styles.title}>Avatar characters</Text>
+      <Link href={'/characters/add'} style={styles.addCharacter}>Add</Link>
       <FlatList
         data={characters}
         numColumns={2}
@@ -115,6 +116,17 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     textAlign: 'center',
   },
+  addCharacter: {
+    color: '#141115',
+    fontFamily: 'avatarock',
+    fontSize: 30,
+    position: 'absolute',
+    left: 15,
+    top: 170,
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 10
+  }
 });
 
 export default CharactersList;

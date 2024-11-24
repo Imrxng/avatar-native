@@ -11,11 +11,12 @@ interface IDataContext {
     questions: Question[];
     theme: string;
     setTheme: React.Dispatch<React.SetStateAction<string>>;
+    setCharacters: React.Dispatch<React.SetStateAction<Character[]>>;
     favorites: number[];
     toggleFavorite: (id: number) => void;
 }
 
-export const DataContext = React.createContext<IDataContext>({ characters: [], info: [], episodes: [], questions: [], theme: 'standaard', setTheme: () => { }, favorites: [], toggleFavorite: () => {} });
+export const DataContext = React.createContext<IDataContext>({ characters: [], info: [], episodes: [], questions: [], theme: 'standaard', setTheme: () => { }, favorites: [], toggleFavorite: () => {}, setCharacters: () => {} });
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     const [characters, setCharacters] = useState<Character[]>([]);
@@ -28,10 +29,11 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         const fetchQuestions = async () => {
-            const responseCharacters = await fetch("https://sampleapis.assimilate.be/avatar/characters");
+            const headers = { "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMxNDgyODZAYXAuYmUiLCJpYXQiOjE3MzI0Njc4OTR9.-438L0SbjLp_bNLLPG65ryDAS-cBEn_t2KT2n8fpkVA"}
+            const responseCharacters = await fetch("https://sampleapis.assimilate.be/avatar/characters", {headers});
             const responseInfo = await fetch("https://sampleapis.assimilate.be/avatar/info");
             const responseEpisodes = await fetch("https://sampleapis.assimilate.be/avatar/episodes");
-            const responseQuestions = await fetch("https://sampleapis.assimilate.be/avatar/questions");
+            const responseQuestions = await fetch("https://sampleapis.assimilate.be/avatar/questions"); 
 
             const dataCharacters: Character[] = await responseCharacters.json();
             const dataInfo: Info[] = await responseInfo.json();
@@ -90,7 +92,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
       };
     
     return (
-        <DataContext.Provider value={{ characters: characters, info: info, episodes: episodes, questions: questions, theme: theme, setTheme: setTheme, favorites: favorites, toggleFavorite: toggleFavorite }}>
+        <DataContext.Provider value={{ characters: characters, info: info, episodes: episodes, questions: questions, theme: theme, setTheme: setTheme, favorites: favorites, toggleFavorite: toggleFavorite, setCharacters: setCharacters }}>
             {children}
         </DataContext.Provider>
     );

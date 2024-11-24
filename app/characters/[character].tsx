@@ -9,7 +9,7 @@ const earth = require("../../assets/images/aarde.webp");
 const air = require("../../assets/images/lucht.webp");
 const water = require("../../assets/images/water.webp");
 
-const Character: React.FC = () => {
+const CharacterPage = () => {
   const [themeImage, setThemeImage] = useState(standard);
   const { characters, theme, favorites, toggleFavorite } = useContext(DataContext);
   const { character } = useLocalSearchParams();
@@ -148,4 +148,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Character;
+export default CharacterPage;
