@@ -3,15 +3,9 @@ import { Text, View, TextInput, Button, StyleSheet, ImageBackground, ScrollView 
 import { DataContext } from '@/datacontext';
 import { Character } from '@/types';
 
-const standard = require("../../assets/images/standaard.webp");
-const fire = require("../../assets/images/vuur.webp");
-const earth = require("../../assets/images/aarde.webp");
-const air = require("../../assets/images/lucht.webp");
-const water = require("../../assets/images/water.webp");
 
 const AddCharacterPage = () => {
   const { characters, setCharacters, theme } = useContext(DataContext);
-  const [themeImage, setThemeImage] = useState(standard);
 
   const [name, setName] = useState<string>('');
   const [image, setImage] = useState<string>('');
@@ -117,22 +111,8 @@ const AddCharacterPage = () => {
     setAge('');
   };
 
-  useEffect(() => {
-    if (theme === "water") {
-      setThemeImage(water);
-    } else if (theme === "vuur") {
-      setThemeImage(fire);
-    } else if (theme === "aarde") {
-      setThemeImage(earth);
-    } else if (theme === "lucht") {
-      setThemeImage(air);
-    } else {
-      setThemeImage(standard);
-    }
-  }, [theme]);
-
   return (
-    <ImageBackground source={themeImage}
+    <ImageBackground source={theme}
       style={styles.container}
       resizeMode="cover">
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>

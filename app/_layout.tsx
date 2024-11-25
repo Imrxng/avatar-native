@@ -6,6 +6,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Feather from "@expo/vector-icons/Feather";
 import Octicons from "@expo/vector-icons/Octicons";
+import Fontisto from '@expo/vector-icons/Fontisto';
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useFonts } from 'expo-font';
 import { useContext, useEffect, useState } from "react";
@@ -17,25 +18,10 @@ const air = require("../assets/images/lucht.webp");
 const water = require("../assets/images/water.webp");
 
 const RootLayout = () => {
-  const { theme } = useContext(DataContext);
-  const [themeImage, setThemeImage] = useState(standard);
   useFonts({
     'avatarock': require('../assets/fonts/avatarock.ttf'),
   });
   
-  useEffect(() => {
-    if (theme === "water") {
-      setThemeImage(water);
-    } else if (theme === "vuur") {
-      setThemeImage(fire);
-    } else if (theme === "aarde") {
-      setThemeImage(earth);
-    } else if (theme === "lucht") {
-      setThemeImage(air);
-    } else {
-      setThemeImage(standard);  
-    }
-  }, [theme]);
   return (
     <DataProvider>
       <Tabs screenOptions={{ headerShown: false }}>
@@ -57,6 +43,20 @@ const RootLayout = () => {
           name="episodes"
           options={{
             tabBarIcon: () => <MaterialCommunityIcons name="filmstrip" size={24} color="#141115" />,
+            tabBarLabel: () => null,
+          }}
+        />
+        <Tabs.Screen
+          name="quiz"
+          options={{
+            tabBarIcon: () => <MaterialIcons name="quiz" size={24} color="#141115" />,
+            tabBarLabel: () => null,
+          }}
+        />
+        <Tabs.Screen
+          name="favorites"
+          options={{
+            tabBarIcon: () => <MaterialIcons name="favorite-border" size={24} color="#141115" />,
             tabBarLabel: () => null,
           }}
         />

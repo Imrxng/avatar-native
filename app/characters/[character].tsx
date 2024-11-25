@@ -10,27 +10,10 @@ const air = require("../../assets/images/lucht.webp");
 const water = require("../../assets/images/water.webp");
 
 const CharacterPage = () => {
-  const [themeImage, setThemeImage] = useState(standard);
   const { characters, theme, favorites, toggleFavorite } = useContext(DataContext);
   const { character } = useLocalSearchParams();
   const characterData = characters.find(c => c.id === parseInt(character as string));
   const isFavorite = favorites.includes(characterData?.id || 0);
-
-  useEffect(() => {
-    if (theme === "water") {
-      setThemeImage(water);
-    } else if (theme === "vuur") {
-      setThemeImage(fire);
-    } else if (theme === "aarde") {
-      setThemeImage(earth);
-    } else if (theme === "lucht") {
-      setThemeImage(air);
-    } else {
-      setThemeImage(standard);
-    }
-  }, [theme]);
-
-
 
   if (characterData) {
     const bioData = [
@@ -47,7 +30,7 @@ const CharacterPage = () => {
 
     return (
       <ImageBackground
-        source={themeImage}
+        source={theme}
         style={styles.container}
         resizeMode="cover"
       >

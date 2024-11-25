@@ -4,33 +4,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { Text, View, StyleSheet, FlatList, ImageBackground, Image, TouchableOpacity } from "react-native";
 import { Character } from '@/types';
 
-const standard = require("../../assets/images/standaard.webp");
-const fire = require("../../assets/images/vuur.webp");
-const earth = require("../../assets/images/aarde.webp");
-const air = require("../../assets/images/lucht.webp");
-const water = require("../../assets/images/water.webp");
 
 const CharactersList = () => {
   const { characters, theme, favorites, toggleFavorite } = useContext(DataContext);
-  const [themeImage, setThemeImage] = useState(standard);
-
-  useEffect(() => {
-    if (theme === "water") {
-      setThemeImage(water);
-    } else if (theme === "vuur") {
-      setThemeImage(fire);
-    } else if (theme === "aarde") {
-      setThemeImage(earth);
-    } else if (theme === "lucht") {
-      setThemeImage(air);
-    } else {
-      setThemeImage(standard);
-    }
-  }, [theme]);
 
   return (
     <ImageBackground
-      source={themeImage}
+      source={theme}
       style={styles.container}
       resizeMode="cover"
     >

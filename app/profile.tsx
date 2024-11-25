@@ -1,8 +1,8 @@
 import { DataContext } from "@/datacontext";
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Button, Image, ImageBackground, StyleSheet, TouchableOpacity, Text, View } from "react-native";
-import * as ImagePicker from 'expo-image-picker'; // Gebruik expo-image-picker
+import * as ImagePicker from 'expo-image-picker'; 
 
 const standard = require("../assets/images/standaard.webp");
 const fire = require("../assets/images/vuur.webp");
@@ -11,11 +11,8 @@ const air = require("../assets/images/lucht.webp");
 const water = require("../assets/images/water.webp");
 
 const Profile = () => {
-  const { setTheme, theme } = React.useContext(DataContext);
-  const [themeImage, setThemeImage] = useState(standard);
-  const [profileImage, setProfileImage] = useState(require("../assets/images/favicon.png"));
+  const { setTheme, theme, profileImage, setProfileImage } = useContext(DataContext);
 
-  // Vraag om permissie voor toegang tot de galerij
   const requestPermission = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
@@ -24,26 +21,8 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    requestPermission(); // Vraag bij het laden van de component om permissie
-
-    switch (theme) {
-      case "water":
-        setThemeImage(water);
-        break;
-      case "vuur":
-        setThemeImage(fire);
-        break;
-      case "aarde":
-        setThemeImage(earth);
-        break;
-      case "lucht":
-        setThemeImage(air);
-        break;
-      default:
-        setThemeImage(standard);
-        break;
-    }
-  }, [theme]);
+    requestPermission(); 
+  }, []);
 
   const handleImagePicker = async () => {
      let result = await ImagePicker.launchImageLibraryAsync({
@@ -59,7 +38,7 @@ const Profile = () => {
   };
 
   return (
-    <ImageBackground source={themeImage} style={styles.container} resizeMode="cover">
+    <ImageBackground source={theme} style={styles.container} resizeMode="cover">
       <Text style={styles.title}>Profile</Text>
       <View style={styles.profileContainer}>
         <Image source={profileImage} style={styles.profileImage} />
@@ -70,19 +49,19 @@ const Profile = () => {
       <Text style={styles.Text}>Themes:</Text>
       <View style={styles.themeContainer}>
         <View style={styles.iconsContainer}>
-          <TouchableOpacity onPress={() => setTheme("water")}>
+          <TouchableOpacity onPress={() => setTheme(water)}>
             <Image source={require("../assets/images/water-logo.webp")} style={styles.icon} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setTheme("vuur")}>
+          <TouchableOpacity onPress={() => setTheme(fire)}>
             <Image source={require("../assets/images/fire-logo.webp")} style={styles.icon} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setTheme("lucht")}>
+          <TouchableOpacity onPress={() => setTheme(air)}>
             <Image source={require("../assets/images/air-logo.webp")} style={styles.icon} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setTheme("aarde")}>
+          <TouchableOpacity onPress={() => setTheme(earth)}>
             <Image source={require("../assets/images/earth-logo.webp")} style={styles.icon} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setTheme("standaard")} style={styles.defaultButton}>
+          <TouchableOpacity onPress={() => setTheme(standard)} style={styles.defaultButton}>
             <Text style={styles.buttonText}>Default</Text>
           </TouchableOpacity>
         </View>
@@ -135,6 +114,9 @@ const styles = StyleSheet.create({
     color: "#141115",
     fontSize: 60,
     fontFamily: 'avatarock',
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 10
   },
   iconsContainer: {
     flexDirection: "row",

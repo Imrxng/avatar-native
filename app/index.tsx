@@ -9,25 +9,10 @@ const water = require("../assets/images/water.webp");
 
 const Index = () => {
   const { info, theme } = useContext(DataContext);
-  const [themeImage, setThemeImage] = useState(standard);
-
-  useEffect(() => {
-    if (theme === "water") {
-      setThemeImage(water);
-    } else if (theme === "vuur") {
-      setThemeImage(fire);
-    } else if (theme === "aarde") {
-      setThemeImage(earth);
-    } else if (theme === "lucht") {
-      setThemeImage(air);
-    } else {
-      setThemeImage(standard);
-    }
-  }, [theme]);
 
   return (
     <ImageBackground
-      source={themeImage}
+      source={theme}
       style={styles.container}
       resizeMode="cover"
     >
