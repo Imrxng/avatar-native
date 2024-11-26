@@ -2,11 +2,9 @@ import * as React from "react";
 import { DataContext, DataProvider } from "@/datacontext";
 import { Tabs } from "expo-router";
 import { StyleSheet, Animated } from "react-native";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import Feather from "@expo/vector-icons/Feather";
-import Octicons from "@expo/vector-icons/Octicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
 import { useEffect, useState } from "react";
 
@@ -35,14 +33,14 @@ const RootLayout = () => {
           <Tabs.Screen
             name="index"
             options={{
-              tabBarIcon: () => <AntDesign name="home" size={24} color="#141115" />,
+              tabBarIcon: () => <FontAwesome name="home" size={24} color="#141115" />,
               tabBarLabel: () => null,
             }}
           />
           <Tabs.Screen
             name="characters"
             options={{
-              tabBarIcon: () => <Octicons name="people" size={24} color="#141115" />,
+              tabBarIcon: () => <MaterialIcons name="people-alt" size={24} color="#141115" />,
               tabBarLabel: () => null,
             }}
           />
@@ -56,7 +54,7 @@ const RootLayout = () => {
           <Tabs.Screen
             name="favorites"
             options={{
-              tabBarIcon: () => <MaterialIcons name="favorite-border" size={24} color="#141115" />,
+              tabBarIcon: () => <MaterialIcons name="favorite" size={24} color="#141115" />,
               tabBarLabel: () => null,
             }}
           />
@@ -77,7 +75,7 @@ const RootLayout = () => {
           <Tabs.Screen
             name="profile"
             options={{
-              tabBarIcon: () => <Feather name="settings" size={24} color="#141115" />,
+              tabBarIcon: () => <MaterialIcons name="settings" size={24} color="#141115" />,
               tabBarLabel: () => null,
             }}
           />
