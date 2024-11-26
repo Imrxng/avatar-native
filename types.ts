@@ -101,3 +101,12 @@ enum DirectedBy {
     LaurenMACMullan = "Lauren MacMullan",
     MichaelDanteDiMartino = "Michael Dante DiMartino",
 }
+
+
+export interface Location {
+    title: string;
+    latitude: number;
+    longitude: number;
+    sound: string;
+}
+  

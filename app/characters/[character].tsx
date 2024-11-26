@@ -1,19 +1,26 @@
 import { DataContext } from '@/datacontext';
 import { useLocalSearchParams } from 'expo-router';
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, ImageBackground, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground, FlatList, TouchableOpacity, Animated } from 'react-native';
 
-const standard = require("../../assets/images/standaard.webp");
-const fire = require("../../assets/images/vuur.webp");
-const earth = require("../../assets/images/aarde.webp");
-const air = require("../../assets/images/lucht.webp");
-const water = require("../../assets/images/water.webp");
 
 const CharacterPage = () => {
   const { characters, theme, favorites, toggleFavorite } = useContext(DataContext);
+  const [fadeAnim] = useState(new Animated.Value(0));
   const { character } = useLocalSearchParams();
   const characterData = characters.find(c => c.id === parseInt(character as string));
   const isFavorite = favorites.includes(characterData?.id || 0);
+
+  useEffect(() => {
+    Animated.timing(
+      fadeAnim,
+      {
+        toValue: 1,
+        duration: 2000,
+        useNativeDriver: true,
+      }
+    ).start();
+  }, [fadeAnim]);
 
   if (characterData) {
     const bioData = [
@@ -29,34 +36,36 @@ const CharacterPage = () => {
     ];
 
     return (
-      <ImageBackground
-        source={theme}
-        style={styles.container}
-        resizeMode="cover"
-      >
-        <View style={[styles.container]}>
-          <Image source={{ uri: characterData.image }} style={styles.characterImage} />
-          <Text style={styles.characterName}>{characterData.name}</Text>
+      <Animated.View style={{ ...styles.container, opacity: fadeAnim, padding: 0 }}>
+        <ImageBackground
+          source={theme}
+          style={styles.container}
+          resizeMode="cover"
+        >
+          <View style={[styles.container]}>
+            <Image source={{ uri: characterData.image }} style={styles.characterImage} />
+            <Text style={styles.characterName}>{characterData.name}</Text>
 
-          <TouchableOpacity onPress={() => toggleFavorite(characterData.id)} style={styles.favoriteButton}>
-            <Text style={styles.favoriteIcon}>{isFavorite ? '❤️ Favorited' : '🤍 Favorite'}</Text>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={() => toggleFavorite(characterData.id)} style={styles.favoriteButton}>
+              <Text style={styles.favoriteIcon}>{isFavorite ? '❤️ Favorited' : '🤍 Favorite'}</Text>
+            </TouchableOpacity>
 
-          <View style={styles.infoBox}>
-            <Text style={styles.sectionTitle}>Character Information:</Text>
-            <FlatList
-              data={bioData}
-              renderItem={({ item }) => (
-                <View style={styles.listItem}>
-                  <Text style={styles.listKey}>{item.key}:</Text>
-                  <Text style={styles.listValue}>{item.value}</Text>
-                </View>
-              )}
-              keyExtractor={(item) => item.key}
-            />
+            <View style={styles.infoBox}>
+              <Text style={styles.sectionTitle}>Character Information:</Text>
+              <FlatList
+                data={bioData}
+                renderItem={({ item }) => (
+                  <View style={styles.listItem}>
+                    <Text style={styles.listKey}>{item.key}:</Text>
+                    <Text style={styles.listValue}>{item.value}</Text>
+                  </View>
+                )}
+                keyExtractor={(item) => item.key}
+              />
+            </View>
           </View>
-        </View>
-      </ImageBackground>
+        </ImageBackground>
+      </Animated.View>
     );
   }
 

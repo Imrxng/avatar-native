@@ -2,12 +2,6 @@ import { DataContext } from '@/datacontext';
 import React, { useContext, useEffect, useState } from "react";
 import { Text, View, StyleSheet, FlatList, ImageBackground } from "react-native";
 
-const standard = require("../assets/images/standaard.webp");
-const fire = require("../assets/images/vuur.webp");
-const earth = require("../assets/images/aarde.webp");
-const air = require("../assets/images/lucht.webp");
-const water = require("../assets/images/water.webp");
-
 const Episodes = () => {
   const { episodes, theme } = useContext(DataContext);
 
