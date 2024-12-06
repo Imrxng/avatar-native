@@ -27,7 +27,7 @@ const AddCharacterPage = () => {
   const [age, setAge] = useState<string>('');
 
   const handleAddCharacter = () => {
-    
+
     if (isNaN(parseInt(age))) {
       setMessage('Age must be a number!');
       return;
@@ -83,12 +83,11 @@ const AddCharacterPage = () => {
       body: JSON.stringify(newCharacter),
     })
       .then((response) => response.json())
-      .then((data) => {
+      .then(() => {
         setCharacters([...characters, newCharacter]);
         setMessage('Character added successfully!');
       })
-      .catch((error) => {
-        console.error('Error adding character:', error);
+      .catch(() => {
         setMessage('Failed to add character.');
       });
 
@@ -256,7 +255,7 @@ const AddCharacterPage = () => {
           />
 
           <Button title="Add Character" onPress={handleAddCharacter} />
-          {message && <Text style={[styles.message, {color: message === "Character added successfully!" ? "green" : "red"}] }>{message}</Text>}
+          {message && <Text style={[styles.message, { color: message === "Character added successfully!" ? "green" : "red" }]}>{message}</Text>}
         </View>
       </ScrollView>
     </ImageBackground>

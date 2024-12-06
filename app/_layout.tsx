@@ -1,7 +1,7 @@
 import * as React from "react";
 import { DataContext, DataProvider } from "@/datacontext";
 import { Tabs } from "expo-router";
-import { StyleSheet, Animated } from "react-native";
+import { StyleSheet, Animated, Text } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -29,54 +29,58 @@ const RootLayout = () => {
   return (
     <DataProvider>
       <Animated.View style={{ ...styles.container, opacity: fadeAnim }}>
-        <Tabs screenOptions={{ headerShown: false }}>
+        <Tabs
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
           <Tabs.Screen
             name="index"
             options={{
               tabBarIcon: () => <FontAwesome name="home" size={24} color="#141115" />,
-              tabBarLabel: () => null,
+              tabBarLabel: ({ focused }) => focused ? <Text style={styles.tabBarIndicator}></Text> : null,
             }}
           />
           <Tabs.Screen
             name="characters"
             options={{
               tabBarIcon: () => <MaterialIcons name="people-alt" size={24} color="#141115" />,
-              tabBarLabel: () => null,
+              tabBarLabel: ({ focused }) => focused ? <Text style={styles.tabBarIndicator}></Text> : null,
             }}
           />
           <Tabs.Screen
             name="episodes"
             options={{
               tabBarIcon: () => <MaterialCommunityIcons name="filmstrip" size={24} color="#141115" />,
-              tabBarLabel: () => null,
+              tabBarLabel: ({ focused }) => focused ? <Text style={styles.tabBarIndicator}></Text> : null,
             }}
           />
           <Tabs.Screen
             name="favorites"
             options={{
               tabBarIcon: () => <MaterialIcons name="favorite" size={24} color="#141115" />,
-              tabBarLabel: () => null,
+              tabBarLabel: ({ focused }) => focused ? <Text style={styles.tabBarIndicator}></Text> : null,
             }}
           />
           <Tabs.Screen
             name="quiz"
             options={{
               tabBarIcon: () => <MaterialIcons name="quiz" size={24} color="#141115" />,
-              tabBarLabel: () => null,
+              tabBarLabel: ({ focused }) => focused ? <Text style={styles.tabBarIndicator}></Text> : null,
             }}
           />
           <Tabs.Screen
             name="map"
             options={{
               tabBarIcon: () => <MaterialIcons name="map" size={24} color="#141115" />,
-              tabBarLabel: () => null,
+              tabBarLabel: ({ focused }) => focused ? <Text style={styles.tabBarIndicator}></Text> : null,
             }}
-          />          
+          />
           <Tabs.Screen
             name="profile"
             options={{
               tabBarIcon: () => <MaterialIcons name="settings" size={24} color="#141115" />,
-              tabBarLabel: () => null,
+              tabBarLabel: ({ focused }) => focused ? <Text style={styles.tabBarIndicator}></Text> : null,
             }}
           />
         </Tabs>
@@ -88,6 +92,11 @@ const RootLayout = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  tabBarIndicator: {
+    backgroundColor: '#141115',
+    height: 2,
+    width: 23,
   },
 });
 
